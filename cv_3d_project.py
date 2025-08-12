@@ -104,7 +104,7 @@ i, j = indices
 print(f"Closest keypoint indices: {i}, {j}")
 
 # === Scale Point Cloud ===
-real_distance_cm = 22  # CHANGE THIS to your known box edge in cm
+real_distance_cm = 22.3  # CHANGE THIS to your known box edge in cm
 dist_3d = np.linalg.norm(points_3d[:, i] - points_3d[:, j])
 scale = real_distance_cm / dist_3d
 points_scaled = (points_3d * scale).T  # (N, 3)
@@ -117,7 +117,7 @@ pcd.points = o3d.utility.Vector3dVector(points_scaled)
 pcd.estimate_normals()
 
 # === Step 1: Cluster the point cloud (DBSCAN) ===
-labels = np.array(pcd.cluster_dbscan(eps=3.0, min_points=30))
+labels = np.array(pcd.cluster_dbscan(eps=3, min_points=30))
 num_clusters = labels.max() + 1
 print(f"🔍 Found {num_clusters} box clusters.")
 
